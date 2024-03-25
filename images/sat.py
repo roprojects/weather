@@ -13,7 +13,7 @@ d = now.strftime("%Y-%m-%d-%H-%M")
 
 page.goto("https://www.wunderground.com/maps/satellite/current-visible/europ")
 
-time.sleep(1)
+time.sleep(10)
 
 page.locator(".map").screenshot(path=f"sat_{d}.jpg")
 
