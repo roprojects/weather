@@ -11,17 +11,21 @@ page = browser.new_page()
 now = datetime.now()
 d = now.strftime("%Y-%m-%d-%H-%M")
 
-page.goto("https://www.wunderground.com/maps/satellite/current-visible/europ")
-
-time.sleep(10)
-
-page.locator(".map").screenshot(path=f"sat_{d}.jpg")
-
-page.goto("https://www.wunderground.com/maps/satellite/infrared/europ")
+page.goto("https://www.met.ie/latest-reports/satellites/europe-visible")
 
 time.sleep(1)
 
-page.locator(".map").screenshot(path=f"sat2_{d}.jpg")
+page.get_by_role("button", name="Reject All").click()
+
+time.sleep(1)
+
+page.locator(".satellites-container").screenshot(path=f"sat_{d}.jpg")
+
+page.goto("https://www.met.ie/latest-reports/satellites/europe-infrared-radar")
+
+time.sleep(1)
+
+page.locator(".satellites-container").screenshot(path=f"sat2_{d}.jpg")
 
 browser.close()
 playwright.stop()
