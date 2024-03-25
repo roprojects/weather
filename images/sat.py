@@ -15,9 +15,9 @@ page.goto("https://www.met.ie/latest-reports/satellites/europe-visible")
 
 time.sleep(1)
 
-page.get_by_role("button", name="Reject All").click()
+#page.get_by_role("button", name="Reject All").click()
 
-time.sleep(1)
+#time.sleep(1)
 
 page.locator(".satellites-container").screenshot(path=f"sat_{d}.jpg")
 
