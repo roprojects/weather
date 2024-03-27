@@ -30,7 +30,7 @@ function ganim() {
   rm -rf $(ls ${2}_*.${3} | head -n -${N})
  fi
 
- if [ $(ls ${2}2_*.${3} | wc -l) -gt ${N} ]
+ if [ "${2}" == "sat" ] && [ $(ls ${2}2_*.${3} | wc -l) -gt ${N} ]
  then
   git rm -rf $(ls ${2}2_*.${3} | head -n -${N})
   rm -rf $(ls ${2}2_*.${3} | head -n -${N})
@@ -38,8 +38,8 @@ function ganim() {
 
  if [ "${2}" == "sat" ]
  then
-  convert -resize 1500x1500 -delay 100 -loop 0 ${2}_*.${3} ${2}.webp
-  convert -resize 1500x1500 -delay 100 -loop 0 ${2}2_*.${3} ${2}2.webp
+  convert -resize 1000x1000 -delay 100 -loop 0 ${2}_*.${3} ${2}.webp
+  convert -resize 1000x1000 -delay 100 -loop 0 ${2}2_*.${3} ${2}2.webp
  elif [ "${2}" != "forecast" ]
  then
   convert -resize 1000x1000 -delay 100 -loop 0 ${2}_*.${3} ${2}.webp
