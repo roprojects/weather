@@ -30,7 +30,7 @@ jobs:
           key: ${{ runner.os }}-pip
 
       - name: Install pip
-        if: steps.cache-pip.outputs.cache-hit != 'true'
+        #if: steps.cache-pip.outputs.cache-hit != 'true'
         run: |
           pip install pytest-playwright
           playwright install chromium --with-deps
