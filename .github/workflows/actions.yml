@@ -12,16 +12,16 @@ jobs:
   update:
     runs-on: ubuntu-22.04
     steps:
-      - uses: awalsh128/cache-apt-pkgs-action@1.4.3
+      - uses: awalsh128/cache-apt-pkgs-action@latest
         with:
           packages: imagemagick
           version: 1.0
 
-      - uses: actions/checkout@4.2.2
+      - uses: actions/checkout@v4
 
       - name: Cache pip
         id: cache-pip
-        uses: actions/cache@4.0.0
+        uses: actions/cache@v4
         with:
           path: |
             /home/runner/.cache
@@ -48,7 +48,7 @@ jobs:
 
           echo "CDATE=${CDATE}" >> $GITHUB_ENV
 
-      - uses: EndBug/add-and-commit@9.1.4
+      - uses: EndBug/add-and-commit@v9
         with:
           message: Update weather images - ${{ env.CDATE }}
           committer_name: github-actions
