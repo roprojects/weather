@@ -1,0 +1,55 @@
+name: Update weather images
+
+on:
+  schedule:
+    - cron: "1 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: imagemagick
+          version: 1.0
+
+      - uses: actions/checkout@v4
+
+      - name: Cache pip
+        id: cache-pip
+        uses: actions/cache@v4
+        with:
+          path: |
+            /home/runner/.cache
+            /home/runner/.pip
+            /home/runner/.pipenv
+          key: ${{ runner.os }}-pip
+
+      - name: Install pip
+        #if: steps.cache-pip.outputs.cache-hit != 'true'
+        run: |
+          pip install pytest-playwright
+          playwright install chromium --with-deps
+
+      - name: Update weather images
+        run: |
+          cd images
+
+          export CDATE=$(date +%Y-%m-%d-%H-%M)
+
+          chmod 755 process.sh
+          ./process.sh
+
+          cd ..
+
+          echo "CDATE=${CDATE}" >> $GITHUB_ENV
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          message: Update weather images - ${{ env.CDATE }}
+          committer_name: github-actions
+          committer_email: github-actions@github.com
